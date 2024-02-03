@@ -11,12 +11,16 @@ const Home = () => {
   const handleRegisterClick = () => {
     navi("/addForm");
   };
+  const handleDelClick = () => {
+    navi(`/members/${1}`);
+  };
 
   return (
     <div>
       <h2>Home</h2>
       <button onClick={handleFindClick}>Find</button>
       <button onClick={handleRegisterClick}>Register</button>
+      <button onClick={handleDelClick}>Delete</button>
     </div>
   );
 };
