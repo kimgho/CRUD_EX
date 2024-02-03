@@ -14,7 +14,7 @@ const Find = () => {
         throw new Error("NO RESPONSE");
       }
       const memData = await response.json();
-      const parData = Object.values(memData);
+      const parData = memData.data;
       setMember(parData);
     } catch (e) {
       console.log(e);
