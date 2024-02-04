@@ -11,7 +11,7 @@ const Delete = () => {
       if (!res.ok) {
         throw new Error("DEL ERROR");
       } else {
-        console.log("delete OK");
+        console.log("Del OK");
       }
     })
     .catch((e) => {
