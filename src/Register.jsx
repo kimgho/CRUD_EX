@@ -6,20 +6,24 @@ const Register = () => {
   const base = "http://15.165.132.40:8080";
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-  const [nameInvalid, setNameInvalid] = useState(false);
-  const [nameErrMsg, setNameErrMsg] = useState("");
-  const [ageInvalid, setAgeInvalid] = useState(false);
-  const [ageErrMsg, setAgeErrMsg] = useState("");
+  const [nameState, setNameState] = useState({
+    invalid: false,
+    errMsg: "",
+  });
+  const [ageState, setAgeState] = useState({
+    invalid: false,
+    errMsg: "",
+  });
   const navigate = useNavigate();
 
   const onNameHandler = (e) => {
     setName(e.target.value);
-    setNameInvalid(false);
+    setNameState({ ...nameState, invalid: false });
   };
 
   const onAgeHandler = (e) => {
     setAge(e.target.value);
-    setAgeInvalid(false);
+    setAgeState({ ...ageState, invalid: false });
   };
 
   const handleSubmit = async () => {
@@ -37,12 +41,16 @@ const Register = () => {
         if (err && typeof err === "object") {
           for (const field in err) {
             if (field === "name") {
-              setNameInvalid(true);
-              setNameErrMsg(`${err[field]}`);
+              setNameState({
+                invalid: true,
+                errMsg: `${err[field]}`,
+              });
             }
             if (field === "age") {
-              setAgeInvalid(true);
-              setAgeErrMsg(`${err[field]}`);
+              setAgeState({
+                invalid: true,
+                errMsg: `${err[field]}`,
+              });
             }
           }
         } else {
@@ -63,24 +71,28 @@ const Register = () => {
         이름:
       </label>
       <input
-        className={nameInvalid ? "input invalid" : "input"}
+        className={nameState.invalid ? "input invalid" : "input"}
         type="text"
         id="nameInput"
         value={name}
         onChange={onNameHandler}
       />
-      {nameInvalid && <div className="error-message">{nameErrMsg}</div>}{" "}
+      {nameState.invalid && (
+        <div className="error-message">{nameState.errMsg}</div>
+      )}{" "}
       <label className="label" htmlFor="ageInput">
         나이:
       </label>
       <input
-        className={ageInvalid ? "input invalid" : "input"}
+        className={ageState.invalid ? "input invalid" : "input"}
         type="number"
         id="ageInput"
         value={age}
         onChange={onAgeHandler}
       />
-      {ageInvalid && <div className="error-message">{ageErrMsg}</div>}{" "}
+      {ageState.invalid && (
+        <div className="error-message">{ageState.errMsg}</div>
+      )}{" "}
       <button className="button" onClick={handleSubmit}>
         등록
       </button>
