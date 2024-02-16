@@ -40,7 +40,7 @@ const Register = () => {
         const err = await res.json();
         if (err && typeof err === "object") {
           for (const field in err) {
-            if (field === "name") {
+            if (field === "name" || field === "nameValid") {
               setNameState({
                 invalid: true,
                 errMsg: `${err[field]}`,
