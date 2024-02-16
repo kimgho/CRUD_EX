@@ -1,15 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
 const Register = () => {
   const base = "http://15.165.132.40:8080";
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
+  const navigate = useNavigate();
+
   const onNameHandler = (e) => {
     setName(e.target.value);
   };
+
   const onAgeHandler = (e) => {
     setAge(e.target.value);
   };
+
   const handleSubmit = async () => {
     try {
       const res = await fetch(base + "/api/addForm", {
@@ -25,18 +31,38 @@ const Register = () => {
         alert(err.age);
         return;
       }
-      window.location.href = "/";
+      alert("등록 완");
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
-    <div>
-      <label htmlFor="nameInput">이름:</label>
-      <input type="text" id="nameInput" value={name} onChange={onNameHandler} />
-      <label htmlFor="ageInput">나이:</label>
-      <input type="number" id="ageInput" value={age} onChange={onAgeHandler} />
-      <button onClick={handleSubmit}>등록</button>
+    <div className="container">
+      <label className="label" htmlFor="nameInput">
+        이름:
+      </label>
+      <input
+        className="input"
+        type="text"
+        id="nameInput"
+        value={name}
+        onChange={onNameHandler}
+      />
+      <label className="label" htmlFor="ageInput">
+        나이:
+      </label>
+      <input
+        className="input"
+        type="number"
+        id="ageInput"
+        value={age}
+        onChange={onAgeHandler}
+      />
+      <button className="button" onClick={handleSubmit}>
+        등록
+      </button>
     </div>
   );
 };
