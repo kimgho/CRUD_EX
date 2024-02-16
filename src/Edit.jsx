@@ -117,7 +117,7 @@ const Edit = () => {
               <p>Age: {member.age}</p>
               <button onClick={() => setEditing(true)}>Edit</button>
               <button onClick={handleDelete}>Delete</button>
-              <button onClick={goBack}>Back</button>
+              <button onClick={goBack}>돌아가기</button>
             </div>
           )}
         </div>
