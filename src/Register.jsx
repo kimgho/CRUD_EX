@@ -27,8 +27,14 @@ const Register = () => {
         body: JSON.stringify({ name: name, age: age }),
       });
       if (!res.ok) {
-        const err = res.json();
-        alert(err.age);
+        const err = await res.json();
+        if (err && typeof err === "object") {
+          for (const field in err) {
+            alert(`${field} : ${err[field]}`);
+          }
+        } else {
+          alert("ERR");
+        }
         return;
       }
       alert("등록 완");
