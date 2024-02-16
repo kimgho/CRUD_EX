@@ -39,7 +39,7 @@ const Edit = () => {
           <p>Age: {member.age}</p>
         </div>
       ) : (
-        <p>No Member</p>
+        <p>No Info</p>
       )}
     </>
   );
