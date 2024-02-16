@@ -7,7 +7,9 @@ const Register = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [nameInvalid, setNameInvalid] = useState(false);
+  const [nameErrMsg, setNameErrMsg] = useState("");
   const [ageInvalid, setAgeInvalid] = useState(false);
+  const [ageErrMsg, setAgeErrMsg] = useState("");
   const navigate = useNavigate();
 
   const onNameHandler = (e) => {
@@ -36,9 +38,11 @@ const Register = () => {
           for (const field in err) {
             if (field === "name") {
               setNameInvalid(true);
+              setNameErrMsg(`${err[field]}`);
             }
             if (field === "age") {
               setAgeInvalid(true);
+              setAgeErrMsg(`${err[field]}`);
             }
           }
         } else {
@@ -65,9 +69,7 @@ const Register = () => {
         value={name}
         onChange={onNameHandler}
       />
-      {nameInvalid && (
-        <div className="error-message">유효하지 않은 이름입니다.</div>
-      )}{" "}
+      {nameInvalid && <div className="error-message">{nameErrMsg}</div>}{" "}
       <label className="label" htmlFor="ageInput">
         나이:
       </label>
@@ -78,9 +80,7 @@ const Register = () => {
         value={age}
         onChange={onAgeHandler}
       />
-      {ageInvalid && (
-        <div className="error-message">유효하지 않은 나이입니다.</div>
-      )}{" "}
+      {ageInvalid && <div className="error-message">{ageErrMsg}</div>}{" "}
       <button className="button" onClick={handleSubmit}>
         등록
       </button>
