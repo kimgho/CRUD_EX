@@ -4,7 +4,6 @@ const Register = () => {
   const base = "http://15.165.132.40:8080";
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
-
   const onNameHandler = (e) => {
     setName(e.target.value);
   };
@@ -22,7 +21,9 @@ const Register = () => {
         body: JSON.stringify({ name: name, age: age }),
       });
       if (!res.ok) {
-        throw new Error("NO REGISTER");
+        const err = res.json();
+        alert(err.age);
+        return;
       }
       window.location.href = "/";
     } catch (e) {

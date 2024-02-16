@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Find = () => {
   const base = "http://15.165.132.40:8080";
   const [members, setMembers] = useState([]);
