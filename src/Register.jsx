@@ -6,18 +6,32 @@ const Register = () => {
   const base = "http://15.165.132.40:8080";
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
+  const [nameInvalid, setNameInvalid] = useState(false);
+  const [ageInvalid, setAgeInvalid] = useState(false);
   const navigate = useNavigate();
 
   const onNameHandler = (e) => {
     setName(e.target.value);
+    setNameInvalid(false);
   };
 
   const onAgeHandler = (e) => {
     setAge(e.target.value);
+    setAgeInvalid(false);
   };
 
   const handleSubmit = async () => {
     try {
+      if (name.trim() === "") {
+        setNameInvalid(true);
+        return;
+      }
+
+      if (age < 20 || age > 50) {
+        setAgeInvalid(true);
+        return;
+      }
+
       const res = await fetch(base + "/api/addForm", {
         method: "POST",
         mode: "cors",
@@ -50,22 +64,28 @@ const Register = () => {
         이름:
       </label>
       <input
-        className="input"
+        className={nameInvalid ? "input invalid" : "input"}
         type="text"
         id="nameInput"
         value={name}
         onChange={onNameHandler}
       />
+      {nameInvalid && (
+        <div className="error-message">유효하지 않은 이름입니다.</div>
+      )}{" "}
       <label className="label" htmlFor="ageInput">
         나이:
       </label>
       <input
-        className="input"
+        className={ageInvalid ? "input invalid" : "input"}
         type="number"
         id="ageInput"
         value={age}
         onChange={onAgeHandler}
       />
+      {ageInvalid && (
+        <div className="error-message">유효하지 않은 나이입니다.</div>
+      )}{" "}
       <button className="button" onClick={handleSubmit}>
         등록
       </button>
