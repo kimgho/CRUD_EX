@@ -22,16 +22,6 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      if (name.trim() === "") {
-        setNameInvalid(true);
-        return;
-      }
-
-      if (age < 20 || age > 50) {
-        setAgeInvalid(true);
-        return;
-      }
-
       const res = await fetch(base + "/api/addForm", {
         method: "POST",
         mode: "cors",
@@ -44,7 +34,12 @@ const Register = () => {
         const err = await res.json();
         if (err && typeof err === "object") {
           for (const field in err) {
-            alert(`${field} : ${err[field]}`);
+            if (field === "name") {
+              setNameInvalid(true);
+            }
+            if (field === "age") {
+              setAgeInvalid(true);
+            }
           }
         } else {
           alert("ERR");
